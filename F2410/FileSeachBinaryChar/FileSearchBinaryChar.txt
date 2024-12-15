@@ -1,0 +1,60 @@
+#include <stdio.h>
+
+#define MAX_SIZE 100
+
+void binarySearchStepByStep(char arr[], int n, char target) {
+    int low = 0, high = n - 1, step = 1;
+
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+
+        // Print the current step details
+        printf("low[i]: %d, high[i]: %d, mid[i]: %d, mid_value: %c\n", 
+               low, high, mid, arr[mid]);
+
+        if (arr[mid] == target) {
+            printf("%c found (i = %d)\n", target, mid);
+            return;
+        } else if (arr[mid] < target) {
+            printf("%c > %c (search right)\n", 
+                   target, arr[mid]);
+            low = mid + 1;
+        } else {
+            printf("%c < %c (search left)\n", 
+                   target, arr[mid]);
+            high = mid - 1;
+        }
+        step++;
+    }
+
+    // If the target is not found
+    printf("Target '%c' not found in the array.\n", target);
+}
+
+int main() {
+    FILE *file = fopen("testdata.in", "r");
+    if (file == NULL) {
+        printf("Error: Could not open file testdata.in\n");
+        return 1;
+    }
+
+    char arr[MAX_SIZE];
+    int n = 0;
+    char target;
+
+    // Read characters from the file for the array
+    while (fscanf(file, " %c", &arr[n]) != EOF) {
+        n++;
+    }
+
+    // The last character is the target
+    target = arr[n - 1];
+    n--; // Adjust size to exclude the target
+
+    fclose(file);
+
+    // Perform binary search and print steps
+    binarySearchStepByStep(arr, n, target);
+    printf("\n");
+    return 0;
+}
