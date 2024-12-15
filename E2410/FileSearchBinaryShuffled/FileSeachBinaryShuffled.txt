@@ -1,0 +1,97 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX_SIZE 100
+
+void binarySearchStepByStep(int arr[], int sorted[], int originalIndex[], int n, int target) {
+    int low = 0, high = n - 1, step = 1;
+
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+
+        // Print the current step details
+        printf("low[i]: %d, high[i]: %d, mid[i]: %d, mid_value: %d\n", 
+               low, high, mid, sorted[mid]);
+
+        if (sorted[mid] == target) {
+            int originalIdx = originalIndex[mid];
+            printf("%d found (unsorted[i]: %d)\n", target, originalIdx);
+            return;
+        } else if (sorted[mid] < target) {
+            printf("%d > %d (search right)\n", 
+                   target, sorted[mid]);
+            low = mid + 1;
+        } else {
+            printf("%d < %d (search left)\n", 
+                   target, sorted[mid]);
+            high = mid - 1;
+        }
+        step++;
+    }
+
+    // If the target is not found
+    printf("Target %d not found in the array.\n", target);
+}
+
+int compare(const void *a, const void *b) {
+    return (*(int *)a - *(int *)b);
+}
+
+int main() {
+    FILE *file = fopen("testdata.in", "r");
+    if (file == NULL) {
+        printf("Error: Could not open file testdata.in\n");
+        return 1;
+    }
+
+    int arr[MAX_SIZE];
+    int sorted[MAX_SIZE];
+    int originalIndex[MAX_SIZE];
+    int n = 0, target;
+
+    // Read integers from the file for the array
+    while (fscanf(file, "%d", &arr[n]) != EOF) {
+        n++;
+    }
+
+    // The last number is the target
+    target = arr[n - 1];
+    n--; // Adjust size to exclude the target
+
+    fclose(file);
+
+    // Copy the original array and initialize original indexes
+    for (int i = 0; i < n; i++) {
+        sorted[i] = arr[i];
+        originalIndex[i] = i; // Track original index
+    }
+
+    // Sort the array while maintaining the original indexes
+    for (int i = 0; i < n - 1; i++) {
+        for (int j = i + 1; j < n; j++) {
+            if (sorted[i] > sorted[j]) {
+                // Swap sorted array
+                int temp = sorted[i];
+                sorted[i] = sorted[j];
+                sorted[j] = temp;
+
+                // Swap original indexes accordingly
+                int tempIndex = originalIndex[i];
+                originalIndex[i] = originalIndex[j];
+                originalIndex[j] = tempIndex;
+            }
+        }
+    }
+
+    // Print the sorted array
+    printf("sorted: ");
+    for (int i = 0; i < n; i++) {
+        printf("%d ", sorted[i]);
+    }
+    printf("\n");
+
+    // Perform binary search and print steps
+    binarySearchStepByStep(arr, sorted, originalIndex, n, target);
+    printf("\n");
+    return 0;
+}
