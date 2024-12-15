@@ -24,7 +24,6 @@ void insertionSortWithSteps(char arr[], int n) {
         arr[j + 1] = key;
 
         // Print the array after this step
-        printf("%d: ", i);
         printArray(arr, n);
     }
 }

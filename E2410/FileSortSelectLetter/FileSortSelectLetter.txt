@@ -28,7 +28,6 @@ void selectionSortWithSteps(char arr[], int n) {
         }
 
         // Print the array after this step
-        printf("%d: ", i + 1);
         printArray(arr, n);
     }
 }
