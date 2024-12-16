@@ -9,22 +9,18 @@ void printArray(int arr[], int size) {
     printf("\n");
 }
 
-void selectionSortWithSteps(int arr[], int n) {
-    for (int i = 0; i < n - 1; i++) {
-        // Find the minimum element in the unsorted portion
-        int minIndex = i;
-        for (int j = i + 1; j < n; j++) {
-            if (arr[j] < arr[minIndex]) {
-                minIndex = j;
-            }
-        }
+void insertionSortWithSteps(int arr[], int n) {
+    for (int i = 1; i < n; i++) {
+        int key = arr[i];
+        int j = i - 1;
 
-        // Swap the found minimum element with the first element of the unsorted portion
-        if (minIndex != i) {
-            int temp = arr[i];
-            arr[i] = arr[minIndex];
-            arr[minIndex] = temp;
+        // Move elements of arr[0..i-1] that are greater than key
+        // to one position ahead of their current position
+        while (j >= 0 && arr[j] > key) {
+            arr[j + 1] = arr[j];
+            j--;
         }
+        arr[j + 1] = key;
 
         // Print the array after this step
         printArray(arr, n);
@@ -51,8 +47,8 @@ int main() {
     printf("Before: ");
     printArray(arr, n);
 
-    // Perform selection sort and print steps
-    selectionSortWithSteps(arr, n);
+    // Perform insertion sort and print steps
+    insertionSortWithSteps(arr, n);
 
     printf("After: ");
     printArray(arr, n);
