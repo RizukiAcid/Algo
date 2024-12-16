@@ -1,0 +1,80 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#define MAX 100
+
+typedef struct
+{
+    char item[20];
+    int qty;
+    int price;
+} Transaction;
+
+//Fungsi untuk sorting data berdasarkan dari file
+void sortData(Transaction *data, int size, int sort, int col) {
+	int i, j;
+    
+	 // Sorting berdasarkan kolom
+    for (i = 0; i < size - 1; i++) {
+        for (j = i + 1; j < size; j++) {
+            int compare = 0;
+            
+            if (col == 1 || col == 2) {
+                compare = strcmp(data[i].item, data[j].item);
+            } else if (col == 3) {
+                compare = (data[i].price > data[j].price) ? 1 : -1;
+            }
+
+            if ((sort && compare > 0) || (!sort && compare < 0)) {
+                Transaction temp = data[i];
+                data[i] = data[j];
+                data[j] = temp;
+            }
+        }
+    }
+}
+
+// Fungsi untuk membaca data dari file
+int readFile(const char *filename, Transaction *data)
+{
+    FILE *file = fopen(filename, "r");
+    if (file == NULL)
+    {
+        return -1;
+    }
+
+    int count = 0, col = 0, sort;
+    fscanf(file, "%d %d %d\n", &count, &sort, &col);
+	int i;
+    for (i = 0; i < count; i++)
+    {
+        fscanf(file, "#%[^-]-%d-%d#\n", &data[i].item, &data[i].qty, &data[i].price);
+    }
+
+    fclose(file);
+    
+    sortData(data, count, sort, col);
+    return count;
+}
+
+// Fungsi untuk menampilkan data
+void showData(Transaction *data, int n)
+{
+	int i;
+    for (i = 0; i < n; i++)
+    {
+        printf("%2d. %-20s | %d = %d\n", i+1, data[i].item, data[i].qty, data[i].price);
+    }
+}
+
+int main()
+{
+    Transaction data[MAX];
+    int count = 0;
+
+    count = readFile("case4b.in", data);
+    showData(data, count);
+
+    return 0;
+}
