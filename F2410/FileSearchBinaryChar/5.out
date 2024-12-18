@@ -1,0 +1,6 @@
+low[i]: 0, high[i]: 4, mid[i]: 2, mid_value: f
+j > f (search right)
+low[i]: 3, high[i]: 4, mid[i]: 3, mid_value: h
+j > h (search right)
+low[i]: 4, high[i]: 4, mid[i]: 4, mid_value: j
+j found (i = 4)

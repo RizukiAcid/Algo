@@ -28,7 +28,7 @@ void binarySearchStepByStep(char arr[], int n, char target) {
     }
 
     // If the target is not found
-    printf("Target '%c' not found in the array.\n", target);
+    printf("%c not found\n", target);
 }
 
 int main() {

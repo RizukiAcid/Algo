@@ -1,0 +1,4 @@
+low[i]: 0, high[i]: 4, mid[i]: 2, mid_value: c
+a < c (search left)
+low[i]: 0, high[i]: 1, mid[i]: 0, mid_value: a
+a found (i = 0)
