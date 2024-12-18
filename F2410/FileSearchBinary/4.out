@@ -1,0 +1,4 @@
+low[i]: 0, high[i]: 4, mid[i]: 2, mid_value: 6
+2 < 6 (search left)
+low[i]: 0, high[i]: 1, mid[i]: 0, mid_value: 2
+2 found (i = 0)
