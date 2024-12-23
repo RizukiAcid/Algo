@@ -1,0 +1,27 @@
+#include <stdio.h>
+#define MOD 1000000007
+
+// Function to calculate (A^B) % MOD using recursion
+long long modExp(long long base, long long exp, long long mod) {
+    if (exp == 0) return 1;               // Base case: A^0 = 1
+    long long half = modExp(base, exp / 2, mod);
+    half = (half * half) % mod;           // Compute (A^(B/2))^2 % MOD
+    if (exp % 2 != 0)                     // If exponent is odd
+        half = (half * base) % mod;       // Multiply by base
+    return half;
+}
+
+int main() {
+    int N;
+    scanf("%d", &N);                      // Read number of test cases
+
+    for (int i = 1; i <= N; i++) {
+        long long A, B;
+        scanf("%lld %lld", &A, &B);       // Read A and B for each test case
+
+        long long result = modExp(A, B, MOD);
+        printf("Case #%d: %lld\n", i, result);
+    }
+    printf("\n");
+    return 0;
+}
