@@ -1,0 +1,8 @@
+sorted: 1 2 3 4 5 
+low[i]: 0, high[i]: 4, mid[i]: 2, mid_value: 3
+6 > 3 (search right)
+low[i]: 3, high[i]: 4, mid[i]: 3, mid_value: 4
+6 > 4 (search right)
+low[i]: 4, high[i]: 4, mid[i]: 4, mid_value: 5
+6 > 5 (search right)
+Target 6 not found in the array.

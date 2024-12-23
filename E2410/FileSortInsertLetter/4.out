@@ -1,0 +1,6 @@
+Before: d b a c e 
+b d a c e 
+a b d c e 
+a b c d e 
+a b c d e 
+After: a b c d e 
