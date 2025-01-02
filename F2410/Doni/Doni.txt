@@ -73,8 +73,8 @@ int main()
     Transaction data[MAX];
     int count = 0;
 
-    count = readFile("case4b.in", data);
+    count = readFile("testdata.in", data);
     showData(data, count);
-
+    printf('\n');
     return 0;
 }
