@@ -1,0 +1,7 @@
+low[i]: 0, high[i]: 8, mid[i]: 4, mid_value: E
+9 < E (search left)
+low[i]: 0, high[i]: 3, mid[i]: 1, mid_value: B
+9 < B (search left)
+low[i]: 0, high[i]: 0, mid[i]: 0, mid_value: A
+9 < A (search left)
+9 not found in the array.

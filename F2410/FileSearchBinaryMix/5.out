@@ -1,0 +1,6 @@
+low[i]: 0, high[i]: 4, mid[i]: 2, mid_value: 30
+50 > 30 (search right)
+low[i]: 3, high[i]: 4, mid[i]: 3, mid_value: 40
+50 > 40 (search right)
+low[i]: 4, high[i]: 4, mid[i]: 4, mid_value: 50
+50 found (i = 4)
