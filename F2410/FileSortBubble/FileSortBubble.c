@@ -1,49 +1,54 @@
 #include <stdio.h>
-#include <stdlib.h>
-
-#define MAX_SIZE 100
-
-void printArray(int arr[], int n) {
-    for (int i = 0; i < n; i++) {
-        printf("%d ", arr[i]);
-    }
-    printf("\n");
-}
 
 int main() {
-    FILE *fp = fopen("testdata.in", "r");
-    if (fp == NULL) {
-        printf("Error: Could not open file testdata.in\n");
+    FILE *file = fopen("testdata.in", "r");
+    if (file == NULL) {
+        perror("Error opening file");
         return 1;
     }
-    
-    int arr[MAX_SIZE];
-    int n = 0;
-    while (n < MAX_SIZE && fscanf(fp, "%d", &arr[n]) == 1) {
-        n++;
+
+    int arr[100];
+    int count = 0;
+    while (fscanf(file, "%d", &arr[count]) != EOF && count < 100) {
+        count++;
     }
-    fclose(fp);
-    
-    // Print the array before sorting
+    fclose(file);
+
     printf("Before: ");
-    printArray(arr, n);
-    
-    // Bubble sort with printing intermediate steps after each outer iteration
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = 0; j < n - i - 1; j++) {
+    for (int i = 0; i < count; i++) {
+        printf("%d", arr[i]);
+        if (i < count - 1) {
+            printf(" ");
+        }
+    }
+    printf("\n");
+
+    for (int i = 0; i < count - 1; i++) {
+        for (int j = 0; j < count - i - 1; j++) {
             if (arr[j] > arr[j + 1]) {
                 int temp = arr[j];
                 arr[j] = arr[j + 1];
                 arr[j + 1] = temp;
+
+                for (int k = 0; k < count; k++) {
+                    printf("%d", arr[k]);
+                    if (k < count - 1) {
+                        printf(" ");
+                    }
+                }
+                printf("\n");
             }
         }
-        // Print intermediate state after each outer loop iteration
-        printArray(arr, n);
     }
-    
-    // Print the final sorted array
+
     printf("After: ");
-    printArray(arr, n);
-    
+    for (int i = 0; i < count; i++) {
+        printf("%d", arr[i]);
+        if (i < count - 1) {
+            printf(" ");
+        }
+    }
+    printf("\n");
+
     return 0;
 }
