@@ -8,7 +8,7 @@
 char **split(const char *s, char delimiter, int *outSize) {
     char **result = NULL;
     int size = 0;
- char *str = (char *)malloc(strlen(s) + 1);
+    char *str = (char *)malloc(strlen(s) + 1);
     strcpy(str, s);
     char *token = strtok(str, " ");
     while (token) {
@@ -21,6 +21,24 @@ char **split(const char *s, char delimiter, int *outSize) {
     *outSize = size;
     free(str);
     return result;
+}
+
+int custom_compare(char *a, char *b) {
+    // Check if both are integers
+    if (isdigit(a[0]) || (a[0] == '-' && isdigit(a[1]))) {
+        // Convert both to integers and compare numerically
+        int a_num = atoi(a);
+        if (isdigit(b[0]) || (b[0] == '-' && isdigit(b[1]))) {
+            int b_num = atoi(b);
+            return a_num - b_num;
+        } else {
+            // Compare 'a' (string representing number) with 'b' (character)
+            return -1; // Numbers come before letters
+        }
+    }
+
+    // If a is a letter, compare letters
+    return toupper(a[0]) - toupper(b[0]);
 }
 
 int main() {
@@ -66,7 +84,7 @@ int main() {
 
     while (low <= high) {
         int mid = (low + high) / 2;
-        int cmp = strcmp(elements[mid], target);
+        int cmp = custom_compare(elements[mid], target);
 
         printf("low[i]: %d, high[i]: %d, mid[i]: %d, mid_value: %s\n", low, high, mid, elements[mid]);
 
@@ -94,6 +112,5 @@ int main() {
     free(elements);
 
     fclose(fp);
-    // printf('\n');
     return 0;
 }
